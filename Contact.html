@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap Form Example</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <ul id="messages"> </ul>
+
+	<div class="container">
+		<form action="">
+            <input class="form-control" id="name" type="text" placeholder="enter your name">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Send Message</label>
+				<input  class="form-control" id="m" autocomplete="off"  placeholder="Write the Message">
+			</div>  
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>.
+    <script>
+        var socket = io();
+        $('form').submit(function(){
+            socket.emit("chat message", {'sms':$("#m").val(), 'user':$("#name").val()} );
+            $('#m').val("");
+            return false
+        })
+        socket.on("chat message", function(msg){
+            //$("#messages").append($('<h4>').text(Date.now())),
+            $("#messages").append($('<li>').text(msg))
+        })
+    </script>
+
+</body>
+</html>
